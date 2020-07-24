@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
       3: GetComments(),
     };
     return AnimatedSwitcher(
-      duration: Duration(milliseconds: 300),
+      duration: Duration(milliseconds: 5000),
       transitionBuilder: (child, animation) {
         return SlideTransition(
           position:

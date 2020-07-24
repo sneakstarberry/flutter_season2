@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram2/models/global.dart';
 import 'package:instagram2/models/post.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -11,155 +10,218 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: 100,
-            color: Colors.red,
-          ),
-          Container(
-            constraints: BoxConstraints.expand(
-                height: MediaQuery.of(context).size.height - 168),
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.all(20),
-                  height: 250,
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            height: 50,
-                            width: 50,
-                            child: CircleAvatar(
-                              backgroundImage: user.profilePicture,
-                            ),
-                          ),
-                          Column(
+    List<Tab> _tabs = [
+      Tab(icon: Icon(Icons.apps)),
+      Tab(icon: Icon(Icons.assignment_ind)),
+    ];
+    return DefaultTabController(
+      length: _tabs.length,
+      child: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Container(
+                    color: Colors.grey[100],
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.all(20),
+                          child: Column(
                             children: <Widget>[
                               Row(
                                 children: <Widget>[
-                                  Container(
-                                    margin:
-                                        EdgeInsets.only(left: 68, right: 20),
-                                    child: Column(
-                                      children: <Widget>[
-                                        Text(
-                                          '129',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text('posts')
-                                      ],
+                                  Stack(children: [
+                                    Container(
+                                      height: 70,
+                                      width: 70,
+                                      child: CircleAvatar(
+                                        backgroundImage: user.profilePicture,
+                                      ),
                                     ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(right: 20),
-                                    child: Column(
-                                      children: <Widget>[
-                                        Text(
-                                          '129K',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                    Positioned(
+                                      bottom: 0,
+                                      right: 0,
+                                      child: Container(
+                                        height: 22,
+                                        width: 22,
+                                        child: CircleAvatar(
+                                          radius: 10,
+                                          backgroundColor: Colors.white,
+                                          child: CircleAvatar(
+                                            radius: 9,
+                                            child: Icon(Icons.add, size: 18),
+                                          ),
                                         ),
-                                        Text('followers')
-                                      ],
+                                      ),
                                     ),
+                                  ]),
+                                  SizedBox(
+                                    width: 20,
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.only(right: 20),
-                                    child: Column(
+                                  Flexible(
+                                    flex: 1,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
                                       children: <Widget>[
-                                        Text(
-                                          '129',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                        Container(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Text(
+                                                '129',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Text('posts')
+                                            ],
+                                          ),
                                         ),
-                                        Text('following')
+                                        Container(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Text(
+                                                '129K',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Text('followers')
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Text(
+                                                '129',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Text('following')
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
                                 ],
                               ),
                               Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(5)),
-                                      color: Colors.blue,
-                                    ),
-                                    margin: EdgeInsets.all(10),
-                                    width: 120,
-                                    height: 30,
-                                    child: FlatButton(
-                                      child: Text(
-                                        'Contact',
-                                        style: TextStyle(color: Colors.white),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        user.username,
+                                        style: textStyleBold,
                                       ),
-                                      onPressed: () {},
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    height: 30,
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(5)),
-                                        border: Border.all(
-                                            width: 1,
-                                            color: Color(0xFFE7E7E7))),
-                                    child: FlatButton(
-                                      child: Text('Edit Profile'),
-                                      onPressed: () {},
-                                    ),
+                                      Text("I am a profile on instagram"),
+                                    ],
                                   ),
                                 ],
                               )
                             ],
-                          )
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                user.username,
-                                style: textStyleBold,
-                              ),
-                              Text("I am a profile on instagram"),
-                              InkWell(
-                                  child: new Text('my instagram'),
-                                  onTap: () => launch(
-                                      'https://www.instagram.com/kallehallden/')),
-                            ],
                           ),
-                          Container()
-                        ],
-                      )
-                    ],
+                        ),
+                        Container(
+                          height: 60,
+                          width: double.infinity,
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 15),
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.grey, width: 0.8),
+                                borderRadius: BorderRadius.circular(5),
+                                color: Colors.white),
+                            child: FlatButton(
+                              onPressed: () => {},
+                              child: Text("Edit Profile"),
+                            ),
+                          ),
+                        ),
+                        Divider(thickness: 0.8, color: Colors.grey),
+                      ],
+                    ),
                   ),
-                  color: Colors.white,
-                ),
-                Container(
-                  height: 50,
-                  color: Colors.blue,
-                ),
-                Column(
-                  children: getPosts(),
-                )
-              ],
+                ],
+              ),
             ),
-          )
-        ],
+            SliverOverlapAbsorber(
+              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+              sliver: SliverPersistentHeader(
+                pinned: true,
+                delegate: _SliverAppBarDelegate(
+                  TabBar(
+                    tabs: _tabs,
+                    unselectedLabelColor: Colors.grey,
+                    labelColor: Colors.black,
+                    indicatorColor: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+          ];
+        },
+        body: SafeArea(
+          child: TabBarView(children: [
+            Builder(
+              builder: (context) {
+                return CustomScrollView(
+                  slivers: [
+                    SliverOverlapInjector(
+                      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                          context),
+                    ),
+                    SliverPadding(
+                      padding: const EdgeInsets.all(8.0),
+                      sliver: SliverFixedExtentList(
+                        itemExtent: 125,
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            return getPosts()[index];
+                          },
+                          childCount: getPosts().length,
+                        ),
+                      ),
+                    )
+                  ],
+                );
+              },
+            ),
+            Builder(
+              builder: (context) {
+                return CustomScrollView(
+                  slivers: [
+                    SliverOverlapInjector(
+                      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                          context),
+                    ),
+                    SliverPadding(
+                      padding: const EdgeInsets.all(8.0),
+                      sliver: SliverFixedExtentList(
+                        itemExtent: 125,
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            return getPosts()[index];
+                          },
+                          childCount: getPosts().length,
+                        ),
+                      ),
+                    )
+                  ],
+                );
+              },
+            ),
+          ]),
+        ),
       ),
     );
   }
@@ -169,25 +231,28 @@ class _ProfilePageState extends State<ProfilePage> {
     List<Widget> posts = [];
     int counter = 0;
     for (Post post in userPosts) {
-      double marginLeft = 2;
-      if (counter == 3) {
-        marginLeft = 0;
-      } else if (counter == 0) {
-        marginLeft = 0;
-      }
-      posts.add(getPost(post, marginLeft));
-      if (counter == 2) {
-        postRows.add(
-          Container(
-            child: Row(
-              children: posts,
+      for (int i = 0; i < 5; i++) {
+        double marginLeft = 2;
+        if (counter == 3) {
+          marginLeft = 0;
+        } else if (counter == 0) {
+          marginLeft = 0;
+        }
+        posts.add(getPost(post, marginLeft));
+        if (counter == 2) {
+          postRows.add(
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: posts,
+              ),
             ),
-          ),
-        );
-        posts = [];
-        counter = 0;
-      } else {
-        counter++;
+          );
+          posts = [];
+          counter = 0;
+        } else {
+          counter++;
+        }
       }
     }
     if (posts.length > 0) {
@@ -210,5 +275,30 @@ class _ProfilePageState extends State<ProfilePage> {
       decoration: BoxDecoration(
           image: DecorationImage(image: post.image, fit: BoxFit.fill)),
     );
+  }
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  _SliverAppBarDelegate(this._tabBar);
+
+  final TabBar _tabBar;
+
+  @override
+  double get minExtent => _tabBar.preferredSize.height;
+  @override
+  double get maxExtent => _tabBar.preferredSize.height;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return new Container(
+      color: Colors.white, // ADD THE COLOR YOU WANT AS BACKGROUND.
+      child: _tabBar,
+    );
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return false;
   }
 }
